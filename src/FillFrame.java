@@ -97,7 +97,7 @@ public class FillFrame extends JFrame{
 				switch (e.getKeyCode()) {
 				case KeyEvent.VK_UP:
 					//clear
-					for (int i = 1; i < userPath.length; i++) { 
+					for (int i = 0; i < userPath.length; i++) { 
 						if (userPath[i][0] != null && Util.isInTheMap(currentX, currentY - 1, size) && currentX == Integer.parseInt(userPath[i][0]) && (currentY - 1) == Integer.parseInt(userPath[i][1])) { //clear all steps which are behind this step
 							Util.clear(drawPanel.getGraphics(),userPath, i, drawPanel.getWidth() / size, drawPanel.getHeight() / size);
 							currentY--;
@@ -118,7 +118,7 @@ public class FillFrame extends JFrame{
 					break;
 				case KeyEvent.VK_DOWN:
 					//clear
-					for (int i = 1; i < userPath.length; i++) { 
+					for (int i = 0; i < userPath.length; i++) { 
 						if (userPath[i][0] != null && Util.isInTheMap(currentX, currentY + 1, size) && currentX == Integer.parseInt(userPath[i][0]) && (currentY + 1) == Integer.parseInt(userPath[i][1])) { //clear all steps which are behind this step
 							Util.clear(drawPanel.getGraphics(),userPath, i, drawPanel.getWidth() / size, drawPanel.getHeight() / size);
 							currentY++;
@@ -129,7 +129,7 @@ public class FillFrame extends JFrame{
 
 					//draw
 					if (flag) { 
-						currentY ++;
+						currentY++;
 						if(Util.isInTheMap(currentX, currentY, size) && Util.isInThePath(currentX, currentY, path))
 							Util.draw(drawPanel.getGraphics(), userPath, currentX, currentY, drawPanel.getWidth() / size, drawPanel.getHeight() / size);
 						else
@@ -138,8 +138,46 @@ public class FillFrame extends JFrame{
 					System.out.println(currentX + " " + currentY);
 					break;
 				case KeyEvent.VK_LEFT:
+					//clear
+					for (int i = 0; i < userPath.length; i++) { 
+						if (userPath[i][0] != null && Util.isInTheMap(currentX - 1, currentY, size) && (currentX - 1) == Integer.parseInt(userPath[i][0]) && currentY == Integer.parseInt(userPath[i][1])) { //clear all steps which are behind this step
+							Util.clear(drawPanel.getGraphics(),userPath, i, drawPanel.getWidth() / size, drawPanel.getHeight() / size);
+							currentX--;
+							flag = false;
+							break;
+						}
+					}
+
+					//draw
+					if (flag) { 
+						currentX--;
+						if(Util.isInTheMap(currentX, currentY, size) && Util.isInThePath(currentX, currentY, path))
+							Util.draw(drawPanel.getGraphics(), userPath, currentX, currentY, drawPanel.getWidth() / size, drawPanel.getHeight() / size);
+						else
+							currentX++;
+					}
+					System.out.println(currentX + " " + currentY);
 					break;
 				case KeyEvent.VK_RIGHT:
+					//clear
+					for (int i = 0; i < userPath.length; i++) { 
+						if (userPath[i][0] != null && Util.isInTheMap(currentX + 1, currentY, size) && (currentX + 1) == Integer.parseInt(userPath[i][0]) && currentY == Integer.parseInt(userPath[i][1])) { //clear all steps which are behind this step
+							Util.clear(drawPanel.getGraphics(),userPath, i, drawPanel.getWidth() / size, drawPanel.getHeight() / size);
+							currentX++;
+							flag = false;
+							break;
+						}
+					}
+
+					//draw
+					if (flag) { 
+						currentX++;
+						if(Util.isInTheMap(currentX, currentY, size) && Util.isInThePath(currentX, currentY, path))
+							Util.draw(drawPanel.getGraphics(), userPath, currentX, currentY, drawPanel.getWidth() / size, drawPanel.getHeight() / size);
+						else
+							currentX--;
+					}
+					System.out.println(currentX + " " + currentY);
 					break;
 				}
 			}
