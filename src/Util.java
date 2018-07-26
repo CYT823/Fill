@@ -1,3 +1,5 @@
+import java.awt.Color;
+import java.awt.Graphics;
 import java.util.Arrays;
 
 public class Util {
@@ -95,4 +97,58 @@ public class Util {
 		path = Arrays.copyOfRange(path, 0, lastPoint);
 		return path;
 	}
+	
+	//把地圖畫在drawPanel上
+	final static void drawMap(Graphics g, int[][] path, int width, int height) {
+		g.setColor(new Color(0, 255, 255, 130)); //起點
+		g.fillRect(path[0][0] * width + 3, path[0][1] * height + 3, width - 6, height - 6);
+		for (int i = 1; i < path.length; i++) {
+			g.setColor(Color.LIGHT_GRAY);
+			g.fillRect(path[i][0] * width + 3, path[i][1] * height + 3, width - 6, height - 6);
+		}
+	}
+	
+	//return "true": currentX and currentY are still in the map
+	final static boolean isInTheMap(int currentX, int currentY, int size) {
+		if (currentX < 0 || currentX > size - 1 || currentY < 0 || currentY > size - 1) {
+			return false;
+		}
+		return true;
+	}
+	
+	//return "true": currentX and currentY are in the path
+	final static boolean isInThePath(int currentX, int currentY, int[][] path) {
+		for(int i=0;i<path.length;i++) {
+			if(path[i][0] == currentX && path[i][1] == currentY) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	final static void draw(Graphics g, String[][] userPath, int currentX, int currentY, int width, int height) {
+		for (int i = 0; i < userPath.length; i++) { //insert the step
+			if (userPath[i][0] == null) {
+				userPath[i][0] = String.valueOf(currentX);
+				userPath[i][1] = String.valueOf(currentY);
+				break;
+			}
+		}
+		g.setColor(new Color(0, 255, 255));
+		g.fillRect(currentX * width + 3, currentY * height + 3, width - 6, height - 6);
+	}
+	
+	final static void clear(Graphics g, String[][] userPath, int index, int width, int height) {
+		for (int i = index + 1; i < userPath.length; i++) {
+			if (userPath[i][0] == null)
+				break;
+			else {
+				g.setColor(Color.LIGHT_GRAY);
+				g.fillRect(Integer.parseInt(userPath[i][0]) * width + 3, Integer.parseInt(userPath[i][1]) * height + 3, width - 6, height - 6);
+				userPath[i][0] = null;
+				userPath[i][1] = null;
+			}
+		}
+	}
+	
 }
