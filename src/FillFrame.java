@@ -13,6 +13,7 @@ import java.awt.event.MouseListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 public class FillFrame extends JFrame{
@@ -68,10 +69,6 @@ public class FillFrame extends JFrame{
 				do {
 					path = Util.givePath(size);
 				} while (path.length < size * size - 4); // 如果地圖太小要重載
-
-				for (int i = 0; i < path.length; i++) {
-					System.out.println("(" + path[i][0] + "," + path[i][1] + ")");
-				}
 				
 				userPath = new String[path.length][2]; //define the userPath cuz String array contain null
 				userPath[0][0] = String.valueOf(path[0][0]);
@@ -114,7 +111,10 @@ public class FillFrame extends JFrame{
 						else
 							currentY++;
 					}
-					System.out.println(currentX + " " + currentY);
+					if(Util.checkGame(userPath)) {
+						JOptionPane.showMessageDialog(null, "Finished", "Congratulation", JOptionPane.INFORMATION_MESSAGE);
+						finshGame();
+					}
 					break;
 				case KeyEvent.VK_DOWN:
 					//clear
@@ -135,7 +135,10 @@ public class FillFrame extends JFrame{
 						else
 							currentY--;
 					}
-					System.out.println(currentX + " " + currentY);
+					if(Util.checkGame(userPath)) {
+						JOptionPane.showMessageDialog(null, "Finished", "Congratulation", JOptionPane.INFORMATION_MESSAGE);
+						finshGame();
+					}
 					break;
 				case KeyEvent.VK_LEFT:
 					//clear
@@ -156,7 +159,10 @@ public class FillFrame extends JFrame{
 						else
 							currentX++;
 					}
-					System.out.println(currentX + " " + currentY);
+					if(Util.checkGame(userPath)) {
+						JOptionPane.showMessageDialog(null, "Finished", "Congratulation", JOptionPane.INFORMATION_MESSAGE);
+						finshGame();
+					}
 					break;
 				case KeyEvent.VK_RIGHT:
 					//clear
@@ -177,7 +183,12 @@ public class FillFrame extends JFrame{
 						else
 							currentX--;
 					}
-					System.out.println(currentX + " " + currentY);
+					if(Util.checkGame(userPath)) {
+						JOptionPane.showMessageDialog(null, "Finished", "Congratulation", JOptionPane.INFORMATION_MESSAGE);
+						finshGame();
+						drawPanel.setFocusable(true);
+						controlPanel.requestFocus();
+					}
 					break;
 				}
 			}
@@ -188,9 +199,7 @@ public class FillFrame extends JFrame{
 		resetBtn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				drawPanel.repaint();
-				setBtn.setEnabled(true);
-				resetBtn.setEnabled(false);
+				finshGame();
 			}
 		});
 		
@@ -200,6 +209,14 @@ public class FillFrame extends JFrame{
 				
 			}
 		});
+	
+	}
+	
+	// The step after finsh the game
+	void finshGame() {
+		drawPanel.repaint();
+		setBtn.setEnabled(true);
+		resetBtn.setEnabled(false);
 	}
 	
 }

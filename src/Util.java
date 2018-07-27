@@ -126,8 +126,9 @@ public class Util {
 		return false;
 	}
 	
+	//draw the current step
 	final static void draw(Graphics g, String[][] userPath, int currentX, int currentY, int width, int height) {
-		for (int i = 0; i < userPath.length; i++) { //insert the step
+		for (int i = 0; i < userPath.length; i++) { 
 			if (userPath[i][0] == null) {
 				userPath[i][0] = String.valueOf(currentX);
 				userPath[i][1] = String.valueOf(currentY);
@@ -138,7 +139,8 @@ public class Util {
 		g.fillRect(currentX * width + 3, currentY * height + 3, width - 6, height - 6);
 	}
 	
-	final static void clear(Graphics g, String[][] userPath, int index, int width, int height) {
+	//clear all the step behind the current step
+	final static void clear(Graphics g, String[][] userPath, int index, int width, int height) { 
 		for (int i = index + 1; i < userPath.length; i++) {
 			if (userPath[i][0] == null)
 				break;
@@ -149,6 +151,15 @@ public class Util {
 				userPath[i][1] = null;
 			}
 		}
+	}
+	
+	final static boolean checkGame(String[][] userPath) {
+		for (int i = 0; i < userPath.length; i++) {
+			if(userPath[i][0] == null) {
+				return false;
+			}
+		}
+		return true;
 	}
 	
 }
