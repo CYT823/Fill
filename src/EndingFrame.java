@@ -1,51 +1,28 @@
-import java.awt.BorderLayout;
+import java.awt.Font;
 import java.awt.Graphics;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
-
 import javax.imageio.ImageIO;
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 public class EndingFrame {
 	JFrame frame;
-	JButton button;
 	JPanel imagePanel;
 	BufferedImage img;
 	
-	public static void main(String[] atgs) {
-		new EndingFrame();
-	}
-	
-	
 	EndingFrame(){
 		frame = new JFrame();
-		frame.setSize(400, 300);
+		frame.setSize(400, 302);
 		frame.setAlwaysOnTop(true);
+		frame.setUndecorated(true);
 		frame.setLocationRelativeTo(null);
 		
-//		button = new JButton("click");
-//		frame.add(button, BorderLayout.NORTH);
-//		imagePanel = new JPanel();
-//		frame.add(imagePanel);
-		
-//		button.addActionListener(new ActionListener() {
-//
-//			@Override
-//			public void actionPerformed(ActionEvent ae) {
-//				
-//				
-//			}
-//			
-//		});
-		
 		try {
+			//img = ImageIO.read(new URL("https://www196.lunapic.com/do-not-link-here-use-hosting-instead/153293646549104584?7628171891"));
 			img = ImageIO.read(new File("congratulation.jpg"));
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -53,9 +30,18 @@ public class EndingFrame {
 
 		frame.add(new JPanel() {
 			@Override
-			protected void paintComponent(Graphics grphcs) {
-				super.paintComponent(grphcs);
-				grphcs.drawImage(img, 0, 0, this);
+			protected void paintComponent(Graphics graphics) {
+				super.paintComponent(graphics);
+				graphics.drawImage(img, 0, 0, this);
+				graphics.setFont(new Font("Skia", Font.BOLD, 16));
+				graphics.drawString("[ PRESS ANY KET TO CONTINUE ]", 70, 280);
+			}
+		});
+
+		frame.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				frame.dispose();
 			}
 		});
 

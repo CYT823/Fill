@@ -100,12 +100,14 @@ public class Util {
 	
 	//把地圖畫在drawPanel上
 	final static void drawMap(Graphics g, int[][] path, int width, int height) {
-		g.setColor(new Color(0, 255, 255, 130)); //起點
+		g.setColor(new Color(0, 255, 0, 130)); //起點
 		g.fillRect(path[0][0] * width + 3, path[0][1] * height + 3, width - 6, height - 6);
-		for (int i = 1; i < path.length; i++) {
+		for (int i = 1; i < path.length-1; i++) {
 			g.setColor(Color.LIGHT_GRAY);
 			g.fillRect(path[i][0] * width + 3, path[i][1] * height + 3, width - 6, height - 6);
 		}
+		g.setColor(new Color(255, 0, 0, 130)); //終點
+		g.fillRect(path[path.length-1][0] * width + 3, path[path.length-1][1] * height + 3, width - 6, height - 6);
 	}
 	
 	//return "true": currentX and currentY are still in the map
@@ -135,31 +137,44 @@ public class Util {
 				break;
 			}
 		}
-		g.setColor(new Color(0, 255, 255));
+		g.setColor(new Color(127, 255, 255, 170));
 		g.fillRect(currentX * width + 3, currentY * height + 3, width - 6, height - 6);
 	}
 	
 	//clear all the step behind the current step
-	final static void clear(Graphics g, String[][] userPath, int index, int width, int height) { 
+	final static void clear(Graphics g, String[][] userPath, int index, int width, int height, int lastPointX, int lastPointY) { 
 		for (int i = index + 1; i < userPath.length; i++) {
 			if (userPath[i][0] == null)
 				break;
 			else {
-				g.setColor(Color.LIGHT_GRAY);
-				g.fillRect(Integer.parseInt(userPath[i][0]) * width + 3, Integer.parseInt(userPath[i][1]) * height + 3, width - 6, height - 6);
+				if(Integer.parseInt(userPath[i][0]) == lastPointX && Integer.parseInt(userPath[i][1]) == lastPointY) { //最後一點要畫回紅色
+					g.setColor(Color.LIGHT_GRAY);
+					g.fillRect(lastPointX * width + 3, lastPointY * height + 3, width - 6, height - 6);
+					g.setColor(new Color(255, 0, 0, 130));
+					g.fillRect(lastPointX * width + 3, lastPointY * height + 3, width - 6, height - 6);
+				}
+				else {
+					g.setColor(Color.LIGHT_GRAY);
+					g.fillRect(Integer.parseInt(userPath[i][0]) * width + 3, Integer.parseInt(userPath[i][1]) * height + 3, width - 6, height - 6);
+				}
 				userPath[i][0] = null;
 				userPath[i][1] = null;
 			}
 		}
 	}
 	
-	final static boolean checkGame(String[][] userPath) {
+	//判斷遊戲結束 true: game finish
+	final static boolean checkGame(String[][] userPath, int lastPointX, int lastPointY) {
 		for (int i = 0; i < userPath.length; i++) {
 			if(userPath[i][0] == null) {
 				return false;
 			}
 		}
-		return true;
+		//確認最後一點是紅色那塊
+		if(userPath[userPath.length-1][0].equals(String.valueOf(lastPointX)) && userPath[userPath.length-1][1].equals(String.valueOf(lastPointY))) {
+			return true;
+		}
+		return false;
 	}
 	
 }

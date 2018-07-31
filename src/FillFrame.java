@@ -11,13 +11,14 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 public class FillFrame extends JFrame{
-	int size = 5; //map size
+	int size = 6; //map size
 	int[][] path; //game path
 	String[][] userPath; // The path which the user went
 	int currentX;
@@ -48,7 +49,7 @@ public class FillFrame extends JFrame{
         bag2.anchor = GridBagConstraints.NORTH;
         
 		controlPanel = new JPanel(new GridBagLayout()); //make vertical center
-		controlPanel.setBackground(new Color(127, 255, 255, 130));
+		controlPanel.setBorder(BorderFactory.createEtchedBorder());
 		drawPanel = new JPanel();
 		setBtn = new JButton("Set");
 		resetBtn = new JButton("Reset");
@@ -68,7 +69,7 @@ public class FillFrame extends JFrame{
 
 				do {
 					path = Util.givePath(size);
-				} while (path.length < size * size - 4); // 如果地圖太小要重載
+				} while (path.length < size * (size - 2) + 3 || size * (size - 2) + 4 < path.length); // 如果地圖太小要重載
 				
 				userPath = new String[path.length][2]; //define the userPath cuz String array contain null
 				userPath[0][0] = String.valueOf(path[0][0]);
@@ -96,7 +97,7 @@ public class FillFrame extends JFrame{
 					//clear
 					for (int i = 0; i < userPath.length; i++) { 
 						if (userPath[i][0] != null && Util.isInTheMap(currentX, currentY - 1, size) && currentX == Integer.parseInt(userPath[i][0]) && (currentY - 1) == Integer.parseInt(userPath[i][1])) { //clear all steps which are behind this step
-							Util.clear(drawPanel.getGraphics(),userPath, i, drawPanel.getWidth() / size, drawPanel.getHeight() / size);
+							Util.clear(drawPanel.getGraphics(),userPath, i, drawPanel.getWidth() / size, drawPanel.getHeight() / size, path[path.length-1][0], path[path.length-1][1]);
 							currentY--;
 							flag = false;
 							break;
@@ -111,8 +112,8 @@ public class FillFrame extends JFrame{
 						else
 							currentY++;
 					}
-					if(Util.checkGame(userPath)) {
-						JOptionPane.showMessageDialog(null, "Finished", "Congratulation", JOptionPane.INFORMATION_MESSAGE);
+					if(Util.checkGame(userPath, path[path.length-1][0], path[path.length-1][1])) {
+						new EndingFrame();
 						finshGame();
 					}
 					break;
@@ -120,7 +121,7 @@ public class FillFrame extends JFrame{
 					//clear
 					for (int i = 0; i < userPath.length; i++) { 
 						if (userPath[i][0] != null && Util.isInTheMap(currentX, currentY + 1, size) && currentX == Integer.parseInt(userPath[i][0]) && (currentY + 1) == Integer.parseInt(userPath[i][1])) { //clear all steps which are behind this step
-							Util.clear(drawPanel.getGraphics(),userPath, i, drawPanel.getWidth() / size, drawPanel.getHeight() / size);
+							Util.clear(drawPanel.getGraphics(),userPath, i, drawPanel.getWidth() / size, drawPanel.getHeight() / size, path[path.length-1][0], path[path.length-1][1]);
 							currentY++;
 							flag = false;
 							break;
@@ -135,8 +136,8 @@ public class FillFrame extends JFrame{
 						else
 							currentY--;
 					}
-					if(Util.checkGame(userPath)) {
-						JOptionPane.showMessageDialog(null, "Finished", "Congratulation", JOptionPane.INFORMATION_MESSAGE);
+					if(Util.checkGame(userPath, path[path.length-1][0], path[path.length-1][1])) {
+						new EndingFrame();
 						finshGame();
 					}
 					break;
@@ -144,7 +145,7 @@ public class FillFrame extends JFrame{
 					//clear
 					for (int i = 0; i < userPath.length; i++) { 
 						if (userPath[i][0] != null && Util.isInTheMap(currentX - 1, currentY, size) && (currentX - 1) == Integer.parseInt(userPath[i][0]) && currentY == Integer.parseInt(userPath[i][1])) { //clear all steps which are behind this step
-							Util.clear(drawPanel.getGraphics(),userPath, i, drawPanel.getWidth() / size, drawPanel.getHeight() / size);
+							Util.clear(drawPanel.getGraphics(),userPath, i, drawPanel.getWidth() / size, drawPanel.getHeight() / size, path[path.length-1][0], path[path.length-1][1]);
 							currentX--;
 							flag = false;
 							break;
@@ -159,8 +160,8 @@ public class FillFrame extends JFrame{
 						else
 							currentX++;
 					}
-					if(Util.checkGame(userPath)) {
-						JOptionPane.showMessageDialog(null, "Finished", "Congratulation", JOptionPane.INFORMATION_MESSAGE);
+					if(Util.checkGame(userPath, path[path.length-1][0], path[path.length-1][1])) {
+						new EndingFrame();
 						finshGame();
 					}
 					break;
@@ -168,7 +169,7 @@ public class FillFrame extends JFrame{
 					//clear
 					for (int i = 0; i < userPath.length; i++) { 
 						if (userPath[i][0] != null && Util.isInTheMap(currentX + 1, currentY, size) && (currentX + 1) == Integer.parseInt(userPath[i][0]) && currentY == Integer.parseInt(userPath[i][1])) { //clear all steps which are behind this step
-							Util.clear(drawPanel.getGraphics(),userPath, i, drawPanel.getWidth() / size, drawPanel.getHeight() / size);
+							Util.clear(drawPanel.getGraphics(),userPath, i, drawPanel.getWidth() / size, drawPanel.getHeight() / size, path[path.length-1][0], path[path.length-1][1]);
 							currentX++;
 							flag = false;
 							break;
@@ -183,11 +184,9 @@ public class FillFrame extends JFrame{
 						else
 							currentX--;
 					}
-					if(Util.checkGame(userPath)) {
-						JOptionPane.showMessageDialog(null, "Finished", "Congratulation", JOptionPane.INFORMATION_MESSAGE);
+					if(Util.checkGame(userPath, path[path.length-1][0], path[path.length-1][1])) {
+						new EndingFrame();
 						finshGame();
-						drawPanel.setFocusable(true);
-						controlPanel.requestFocus();
 					}
 					break;
 				}
@@ -206,7 +205,7 @@ public class FillFrame extends JFrame{
 		QABtn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
+				new RuleFrame();
 			}
 		});
 	
