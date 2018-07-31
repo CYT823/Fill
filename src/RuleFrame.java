@@ -1,4 +1,3 @@
-import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.KeyAdapter;
@@ -50,6 +49,7 @@ public class RuleFrame {
 		frame.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent e) {
+				FillFrame.drawPanel.requestFocus();
 				frame.dispose();
 			}
 		});
