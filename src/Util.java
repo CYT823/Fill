@@ -3,6 +3,64 @@ import java.awt.Graphics;
 import java.util.Arrays;
 
 public class Util {
+	//Array of the square location
+	public static int[][] setSquareSiteTable() {
+		int[][] site = new int[16][2];
+		
+		site[0][0] = 0; 
+		site[0][1] = 70;
+		site[1][0] = 0; 
+		site[1][1] = 0;
+		site[2][0] = 70; 
+		site[2][1] = 0;
+		site[3][0] = 70;
+		site[3][1] = 70;
+		site[4][0] = 140; 
+		site[4][1] = 70;
+		site[5][0] = 140;
+		site[5][1] = 140;
+		site[6][0] = 70;
+		site[6][1] = 140;
+		site[7][0] = 0; 
+		site[7][1] = 140;
+		site[8][0] = 0; 
+		site[8][1] = 210;
+		site[9][0] = 70; 
+		site[9][1] = 210;
+		site[10][0] = 140; 
+		site[10][1] = 210;
+		site[11][0] = 210; 
+		site[11][1] = 210;
+		site[12][0] = 210;
+		site[12][1] = 140;
+		site[13][0] = 210; 
+		site[13][1] = 70;
+		site[14][0] = 210;
+		site[14][1] = 0;
+		site[15][0] = 140;
+		site[15][1] = 0;
+		
+		return site;
+	}
+	
+	//color array
+	public static int[][] setSqareColorTable() {
+		int[][] colorTable = new int[3][3];
+
+		colorTable[0][0] = 152;
+		colorTable[0][1] = 251;
+		colorTable[0][2] = 152;
+
+		colorTable[1][0] = 187;
+		colorTable[1][1] = 255;
+		colorTable[1][2] = 250;
+
+		colorTable[2][0] = 255;
+		colorTable[2][1] = 165;
+		colorTable[2][2] = 0;
+
+		return colorTable;
+	}
 	
 	// Returns true if this collection contains this position.
 	final static boolean isExist(int x, int y, int[][] path) {
