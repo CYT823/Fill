@@ -8,10 +8,11 @@ import java.awt.event.KeyEvent;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 public class FillFrame extends JFrame{
-	int size = 6; //map size
+	int size; //map size
 	int[][] path; //game path
 	String[][] userPath; // The path which the user went
 	int currentX;
@@ -19,7 +20,7 @@ public class FillFrame extends JFrame{
 	JPanel controlPanel;
 	static JPanel drawPanel;
 	JButton setBtn;
-	JButton resetBtn;
+	JButton clearBtn;
 	JButton QABtn;
 	
 	FillFrame(){
@@ -45,12 +46,14 @@ public class FillFrame extends JFrame{
 		controlPanel.setBorder(BorderFactory.createEtchedBorder());
 		drawPanel = new JPanel();
 		setBtn = new JButton("Set");
-		resetBtn = new JButton("Reset");
-		resetBtn.setEnabled(false);
+		clearBtn = new JButton("Clear");
+		clearBtn.setEnabled(false);
 		QABtn = new JButton("Rules");
 
 		controlPanel.add(setBtn);
-		controlPanel.add(resetBtn);
+		controlPanel.add(new JPanel());
+		controlPanel.add(clearBtn);
+		controlPanel.add(new JPanel());
 		controlPanel.add(QABtn);
 		this.add(controlPanel, bag1);
 		this.add(drawPanel, bag2);
@@ -58,6 +61,9 @@ public class FillFrame extends JFrame{
 		setBtn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				// giving size, default is 5
+				askingSize();
+				
 				drawPanel.setLayout(new GridLayout(size, size));
 
 				do {
@@ -74,7 +80,7 @@ public class FillFrame extends JFrame{
 				Util.drawMap(drawPanel.getGraphics(), path, drawPanel.getWidth() / size, drawPanel.getHeight() / size);
 				
 				setBtn.setEnabled(false);
-				resetBtn.setEnabled(true);
+				clearBtn.setEnabled(true);
 				drawPanel.requestFocus();
 			}
 		});
@@ -188,7 +194,7 @@ public class FillFrame extends JFrame{
 		
 		
 		
-		resetBtn.addActionListener(new ActionListener() {
+		clearBtn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				finshGame();
@@ -204,11 +210,21 @@ public class FillFrame extends JFrame{
 	
 	}
 	
+	void askingSize() {
+		do {
+			try {
+				size = Integer.parseInt(JOptionPane.showInputDialog(null, "(ex: 5 means 5x5 map) Suggenst:5-10", "Input size", JOptionPane.INFORMATION_MESSAGE));
+			} catch (NumberFormatException nfe) {
+				size = 5;
+			}
+		} while (size < 4 || size > 12);
+	}
+
 	// The step after finsh the game
 	void finshGame() {
 		drawPanel.repaint();
 		setBtn.setEnabled(true);
-		resetBtn.setEnabled(false);
+		clearBtn.setEnabled(false);
 	}
 	
 }
