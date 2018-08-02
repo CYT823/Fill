@@ -1,18 +1,19 @@
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 public class RuleFrame {
 	JFrame frame;
 	JPanel imagePanel;
-	BufferedImage img;
+	Image img;
 	
 	RuleFrame(){
 		frame = new JFrame();
@@ -21,12 +22,8 @@ public class RuleFrame {
 		frame.setUndecorated(true);
 		frame.setLocationRelativeTo(null);
 		
-		try {
-			//img = ImageIO.read(new URL("https://www269.lunapic.com/do-not-link-here-use-hosting-instead/153300311320191605?6349266302"));
-			img = ImageIO.read(new File("rule.jpg"));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		String path = getClass().getResource("rule.jpg").getFile();
+		img = new ImageIcon(path).getImage();
 		
 		frame.add(new JPanel() {
 			@Override
@@ -41,8 +38,6 @@ public class RuleFrame {
 				g.drawString("Using (↑) (↓) (←) (→) to change the current step.", 40, 195);
 				g.drawString("Good luck!", 40, 230);
 				g.drawString("[ ANY KEY ]", 175, 260);
-				
-//				g.drawString("those boxes which were gone through behind this box", 50, 95);
 			}
 		});
 

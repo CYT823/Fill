@@ -1,18 +1,16 @@
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 public class EndingFrame {
 	JFrame frame;
 	JPanel imagePanel;
-	BufferedImage img;
+	Image img;
 	
 	EndingFrame(){
 		frame = new JFrame();
@@ -21,12 +19,8 @@ public class EndingFrame {
 		frame.setUndecorated(true);
 		frame.setLocationRelativeTo(null);
 		
-		try {
-			//img = ImageIO.read(new URL("https://www196.lunapic.com/do-not-link-here-use-hosting-instead/153293646549104584?7628171891"));
-			img = ImageIO.read(new File("congratulation.jpg"));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		String path = getClass().getResource("congratulation.jpg").getFile();
+		img = new ImageIcon(path).getImage();
 
 		frame.add(new JPanel() {
 			@Override

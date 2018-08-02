@@ -5,10 +5,7 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.io.File;
-import java.io.IOException;
-
-import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
@@ -71,14 +68,12 @@ public class HomePageAnimation extends JPanel{
 					FillFrame frame = new FillFrame();
 					frame.setSize(500, 600);
 					frame.setMinimumSize(new Dimension(400, 500));
+					frame.setTitle(" F I L L ");
 					frame.setLocationRelativeTo(null);
 					frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-					try {
-						Image img = ImageIO.read(new File("gameIcon.png"));
-						frame.setIconImage(img);
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
+					String path = getClass().getResource("gameIcon.png").getFile();
+					Image img = new ImageIcon(path).getImage();
+					frame.setIconImage(img);
 					frame.setVisible(true);
 				}
 			}
