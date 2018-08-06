@@ -12,7 +12,7 @@ public class GUI {
 		frame.setResizable(false);
 		frame.setLocationRelativeTo(null);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
+
 		String path = GUI.class.getResource("gameIcon.png").getFile();
 		Image img = new ImageIcon(path).getImage();
 		frame.setIconImage(img);

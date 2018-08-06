@@ -1,9 +1,14 @@
 import java.awt.Color;
 import java.awt.Graphics;
 import java.util.Arrays;
-
+/**
+ * @author CYT
+ */
 public class Util {
-	//Array of the square location
+	
+	/**
+	 * @return Array of the square location
+	 */
 	public static int[][] setSquareSiteTable() {
 		int[][] site = new int[16][2];
 		
@@ -43,8 +48,10 @@ public class Util {
 		return site;
 	}
 	
-	//color array
-	public static int[][] setSqareColorTable() {
+	/**
+	 * @return color array make the square change color
+	 */
+	public static int[][] setSquareColorTable() {
 		int[][] colorTable = new int[3][3];
 
 		colorTable[0][0] = 152;
@@ -62,7 +69,14 @@ public class Util {
 		return colorTable;
 	}
 	
-	// Returns true if this collection contains this position.
+	/**
+	 * Check the point is in the table or not.
+	 * 
+	 * @param x x-coordinate
+	 * @param y y-coordinate
+	 * @param path the collection
+	 * @return true if this collection contains this position
+	 */
 	final static boolean isExist(int x, int y, int[][] path) {
 		for (int i = 0; i < path.length; i++) {
 			if (path[i][0] == x && path[i][1] == y) {
@@ -72,7 +86,14 @@ public class Util {
 		return false;
 	}
 	
-	// set the game path
+	/**
+	 * Using random to choose the next step is up or down or left or right.
+	 * After getting the direction, it should make sure it wasn't chosen.
+	 * Setting a TTL to avoid the point cannot having another step.
+	 * 
+	 * @param size the map size (or level of the user)
+	 * @return the game table
+	 */
 	final static int[][] givePath(int size) {
 		String[] direction = { "up", "down", "left", "right" };
 		int[][] path = new int[size * size - 3][2];
@@ -156,7 +177,15 @@ public class Util {
 		return path;
 	}
 	
-	//把地圖畫在drawPanel上
+	/**
+	 * Draw the map square on the drawPanel.
+	 * Light green is startPoint and light red is the end.
+	 * 
+	 * @param g the graphics of the drawPanel
+	 * @param path the map
+	 * @param width wideth of each block
+	 * @param height height of each block
+	 */
 	final static void drawMap(Graphics g, int[][] path, int width, int height) {
 		g.setColor(new Color(0, 255, 0, 130)); //起點
 		g.fillRect(path[0][0] * width + 3, path[0][1] * height + 3, width - 6, height - 6);
@@ -168,7 +197,14 @@ public class Util {
 		g.fillRect(path[path.length-1][0] * width + 3, path[path.length-1][1] * height + 3, width - 6, height - 6);
 	}
 	
-	//return "true": currentX and currentY are still in the map
+	/**
+	 * Check the next move still in the map.
+	 * 
+	 * @param currentX the x position of the current step
+	 * @param currentY The y position of the current step
+	 * @param size The size of the map
+	 * @return True means currentX and currentY are still in the map
+	 */
 	final static boolean isInTheMap(int currentX, int currentY, int size) {
 		if (currentX < 0 || currentX > size - 1 || currentY < 0 || currentY > size - 1) {
 			return false;
@@ -176,7 +212,15 @@ public class Util {
 		return true;
 	}
 	
-	//return "true": currentX and currentY are in the path
+	
+	/**
+	 * Check the next move is in in the path or not.
+	 * 
+	 * @param currentX The x position of the current step
+	 * @param currentY The y position of the current step
+	 * @param path The path array
+	 * @return True means currentX and currentY is in the path
+	 */
 	final static boolean isInThePath(int currentX, int currentY, int[][] path) {
 		for(int i=0;i<path.length;i++) {
 			if(path[i][0] == currentX && path[i][1] == currentY) {
@@ -186,7 +230,16 @@ public class Util {
 		return false;
 	}
 	
-	//draw the current step
+	/**
+	 * Draw the current step
+	 * 
+	 * @param g The graphics of the drawPanel
+	 * @param userPath The history of the user's step
+	 * @param currentX The x position of the current step
+	 * @param currentY The y position of the current step
+	 * @param width The width of each block
+	 * @param height The height of each block
+	 */
 	final static void draw(Graphics g, String[][] userPath, int currentX, int currentY, int width, int height) {
 		for (int i = 0; i < userPath.length; i++) { 
 			if (userPath[i][0] == null) {
@@ -199,7 +252,17 @@ public class Util {
 		g.fillRect(currentX * width + 3, currentY * height + 3, width - 6, height - 6);
 	}
 	
-	//clear all the step behind the current step
+	/**
+	 * Clear all the step behind the current step
+	 * 
+	 * @param g The graphics of the drawPanel
+	 * @param userPath The history of the user's step
+	 * @param index The index of the current step.
+	 * @param width The width of each block
+	 * @param height The height of each block
+	 * @param lastPointX The final point's x position
+	 * @param lastPointY The final point's y position
+	 */
 	final static void clear(Graphics g, String[][] userPath, int index, int width, int height, int lastPointX, int lastPointY) { 
 		for (int i = index + 1; i < userPath.length; i++) {
 			if (userPath[i][0] == null)
@@ -221,7 +284,14 @@ public class Util {
 		}
 	}
 	
-	//判斷遊戲結束 true: game finish
+	/**
+	 * 判斷遊戲結束
+	 * 
+	 * @param userPath The history of the user's step
+	 * @param lastPointX The final point's x position
+	 * @param lastPointY The final point's y position
+	 * @return True means user finish the game successfully
+	 */
 	final static boolean checkGame(String[][] userPath, int lastPointX, int lastPointY) {
 		for (int i = 0; i < userPath.length; i++) {
 			if(userPath[i][0] == null) {

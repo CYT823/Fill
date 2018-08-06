@@ -5,14 +5,23 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
+
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-
+/**
+ * 
+ * @author CYT
+ * @version 4.1
+ *
+ */
 public class FillFrame extends JFrame{
-	int size; //map size
+	int size = 5; //map size, also level
 	int[][] path; //game path
 	String[][] userPath; // The path which the user went
 	int currentX;
@@ -23,8 +32,18 @@ public class FillFrame extends JFrame{
 	JButton clearBtn;
 	JButton QABtn;
 	
+	
 	FillFrame(){
 		this.setLayout(new GridBagLayout()); // set frame layout to gridbag
+		this.addWindowListener(new WindowAdapter() {
+			
+			@Override
+			public void windowClosing(WindowEvent arg0) {
+				JOptionPane.showMessageDialog(controlPanel, "Your IQ: "+(size+1)*10);
+			}
+			
+			
+		});
 		
 		GridBagConstraints bag1 = new GridBagConstraints();
 		bag1.gridx = 0;
@@ -57,12 +76,12 @@ public class FillFrame extends JFrame{
 		controlPanel.add(QABtn);
 		this.add(controlPanel, bag1);
 		this.add(drawPanel, bag2);
-
+		
 		setBtn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// giving size, default is 5
-				askingSize();
+				//askingSize();
 				
 				drawPanel.setLayout(new GridLayout(size, size));
 
@@ -114,6 +133,8 @@ public class FillFrame extends JFrame{
 					if(Util.checkGame(userPath, path[path.length-1][0], path[path.length-1][1])) {
 						new EndingFrame();
 						finshGame();
+						if(size<12)
+							size++;
 					}
 					break;
 				case KeyEvent.VK_DOWN:
@@ -138,6 +159,8 @@ public class FillFrame extends JFrame{
 					if(Util.checkGame(userPath, path[path.length-1][0], path[path.length-1][1])) {
 						new EndingFrame();
 						finshGame();
+						if(size<12)
+							size++;
 					}
 					break;
 				case KeyEvent.VK_LEFT:
@@ -162,6 +185,8 @@ public class FillFrame extends JFrame{
 					if(Util.checkGame(userPath, path[path.length-1][0], path[path.length-1][1])) {
 						new EndingFrame();
 						finshGame();
+						if(size<12)
+							size++;
 					}
 					break;
 				case KeyEvent.VK_RIGHT:
@@ -186,6 +211,8 @@ public class FillFrame extends JFrame{
 					if(Util.checkGame(userPath, path[path.length-1][0], path[path.length-1][1])) {
 						new EndingFrame();
 						finshGame();
+						if(size<12)
+							size++;
 					}
 					break;
 				}
@@ -198,6 +225,8 @@ public class FillFrame extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				finshGame();
+				if (size > 4) //按clear按鈕 等級就會下降
+					size--;
 			}
 		});
 		

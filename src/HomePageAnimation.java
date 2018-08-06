@@ -22,7 +22,7 @@ public class HomePageAnimation extends JPanel{
 	
 	HomePageAnimation(){
 		SiteTable = Util.setSquareSiteTable();
-		colorTable = Util.setSqareColorTable();
+		colorTable = Util.setSquareColorTable();
 		
 		Graphics g = getGraphics();
 
