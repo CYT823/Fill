@@ -1,16 +1,13 @@
 # Fill
 JAVA game - Fill
 
-
 Language: JAVA GUI
-
 
 Tools: eclipse
 
-
 Owner: CYT
 
-
+-------------------------------------------
 
 class
 
@@ -23,7 +20,7 @@ class
   
   Frame, FillFrame, EndingFrame, HomePageAnimation, RuleFrame: JAVA GUI
   
-  
+-------------------------------------------
  
 Rules
   
