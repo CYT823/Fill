@@ -11,8 +11,9 @@ Tools: eclipse
 Owner: CYT
 
 
-<class>
-  
+
+class
+
   
   GUI: The execute class. 
   
@@ -23,8 +24,8 @@ Owner: CYT
   Frame, FillFrame, EndingFrame, HomePageAnimation, RuleFrame: JAVA GUI
   
   
-  
-<Rules>
+ 
+Rules
   
   
   Using up, left, down, right to control the current place.
