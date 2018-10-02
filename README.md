@@ -9,7 +9,7 @@ Owner: CYT
 
 -------------------------------------------
 
-class
+Classes:
 
   
   GUI: The execute class. 
@@ -22,7 +22,7 @@ class
   
 -------------------------------------------
  
-Rules
+Rules:
   
   
   Using up, left, down, right to control the current place.
