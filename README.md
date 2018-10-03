@@ -31,7 +31,7 @@ Rules:
   Fill all the blockes by only one line.
   
   
-  Strat from the green block and end with the final step is the red block. 
+  Start from the green block and end with the final step is the red block. 
   
   
 Inspired by: https://play.google.com/store/apps/details?id=com.gamestart.fill
